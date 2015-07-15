@@ -107,7 +107,8 @@ class WebhookHandler(webapp2.RequestHandler):
                 setEnabled(chat_id, False)
             else:
                 reply('What command?')
-        # else:
+        else:
+            pass
             # correct = True
             # words = []
             # for word in text.split():

@@ -1,7 +1,9 @@
-import re, collections
+import re
+import collections
 
 
-def words(text): return re.findall('[a-z]+', text.lower())
+def words(text):
+    return re.findall("[a-z]+", text.lower())
 
 
 def train(features):
@@ -10,8 +12,7 @@ def train(features):
         model[f] += 1
     return model
 
-
-NWORDS = train(words(file('big.txt').read()))
+WORDS = train(words(file('big.txt').read()))
 
 alphabet = 'abcdefghijklmnopqrstuvwxyz'
 
@@ -26,15 +27,17 @@ def edits1(word):
 
 
 def known_edits2(word):
-    return set(e2 for e1 in edits1(word) for e2 in edits1(e1) if e2 in NWORDS)
+    return set(e2 for e1 in edits1(word) for e2 in edits1(e1) if e2 in WORDS)
 
 
-def known(words): return set(w for w in words if w in NWORDS)
+def known(word):
+    return set(w for w in word if w in WORDS)
 
 
 def correct(word):
     candidates = known([word]) or known(edits1(word)) or known_edits2(word) or [word]
-    return max(candidates, key=NWORDS.get)
+    return max(candidates, key=WORDS.get)
+
 
 def check(word):
     return word.lower() in file('dictionary.txt').read()
